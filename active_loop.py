@@ -1,5 +1,3 @@
-#prio 1
-
 import pygame
 from pygame.locals import *
 import sys
@@ -75,14 +73,26 @@ class Button():
 #Buttons
 up = Button(275, 200, '', red, 70, 70, green, blue, 10)
 activeUpgrade1 = Button(400, 300, "Upgrade Telescope (" + str(10) + " RP)", red, 70, 70, green, blue, 10)
-passiveUpgrad1 = Button(400, 300, "Upgrade exploration (" + str(10) + " RP)", red, 70, 70, green, blue, 10)
+passiveUpgrade1 = Button(200, 300, "Upgrade exploration (" + str(10) + " RP)", red, 70, 70, green, blue, 10)
+passiveupgrade1Pressed = False
 activeUpgrade1Pressed = False
 activeUpgrade2Pressed = False
+passiveupgrade2Pressed = False
+passiveUpgrade2Pressed = False
 
 
 #main run function
+passive_income = 0
 run = True
+FPS = 60
+clock = pygame.time.Clock()
+time_counter = 0
 while run:
+    clock.tick(FPS)
+    time_counter += 1
+    time_counter %= 60
+    if time_counter == 0:
+        counter += passive_income
     #fill screen
     screen.fill(white)
     #adds title
@@ -106,11 +116,29 @@ while run:
             activeUpgrade2Pressed = True
     
     if activeUpgrade2Pressed == True:
-        activeUpgrade3 = Button(400, 500, "Upgrade Telescope (" + str(20) + " RP)", red, 70, 70, green, blue, 10)
+        activeUpgrade3 = Button(400, 500, "Upgrade Telescope (" + str(50) + " RP)", red, 70, 70, green, blue, 10)
         if activeUpgrade3.isClicked() and counter >= 50:
             count_up_by += 10
             counter -= 50
             activeUpgrade2Pressed = True
+    
+    if passiveUpgrade1.isClicked() and counter >= 10 :
+        passive_income += 1
+        counter -= 10
+        passiveupgrade1Pressed = True
+
+    if passiveupgrade1Pressed == True:
+        passiveUpgrade2 = Button(200, 400, "Upgrade Exploration (" + str(20) + " RP)", red, 70, 70, green, blue, 10)
+        if passiveUpgrade2.isClicked() and counter >= 20:
+            passive_income += 5
+            counter -= 20
+            passiveUpgrade2Pressed = True
+
+    if passiveUpgrade2Pressed == True:
+        passiveUpgrade3 = Button(200, 500, "Upgrade Exploration (" + str(50) + " RP)", red, 70, 70, green, blue, 10)
+        if passiveUpgrade3.isClicked() and counter >= 50:
+            passive_income += 10
+            counter -= 50
 
 #counter number
     counter_img = font.render(str(counter), True, (100,50,100))
