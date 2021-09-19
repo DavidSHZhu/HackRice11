@@ -1,14 +1,3 @@
-"""
-TODO:
-add logic to when victory screen appears (aka when progression_index == len(CUTOFF_VALUES) - 1)
-    -delete buttons
-    -add a quit button
-fix button positioning / colors, etc.
-add informative popups.
-add comments to code
-THINK OF NAME FOR GAME.
-"""
-
 import pygame
 from pygame.locals import *
 import sys
@@ -51,11 +40,7 @@ VICTORY_SCREEN = pygame.transform.smoothscale(VICTORY_SCREEN, (WIDTH, HEIGHT))
 BEAKER = pygame.transform.scale(BEAKER, (40, 56))
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-# CHANGE THE GAME NAME DO NOT FORGET
-# DO NOT FORGET TO DO THIS
-# DO NOT FORGET TO DO THIS
-# DO NOT FORGET TO DO THIS
-pygame.display.set_caption('GAME NAME')
+pygame.display.set_caption('StarCatcher')
 
 font = pygame.font.SysFont('Arial', 30)
 
