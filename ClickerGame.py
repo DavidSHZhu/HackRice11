@@ -23,16 +23,14 @@ dark_red = (139, 0, 0)
 WIDTH = 900
 HEIGHT = 600
 
-#pictures
-GRASSY_FIELD = pygame.image.load("/Users/YourName/Documents/git/HackRice11/GrassyField.png")
-PLANET_EARTH = pygame.image.load("/Users/YourName/Documents/git/HackRice11/PlanetEarth.png")
-EARTH_MOON = pygame.image.load("/Users/YourName/Documents/git/HackRice11/EarthMoon.png")
-SOLAR_SYSTEM = pygame.image.load("/Users/YourName/Documents/git/HackRice11/SolarSystem.png")
-GALAXY_VIEW = pygame.image.load("/Users/YourName/Documents/git/HackRice11/GalaxyView.png")
-VICTORY_SCREEN = pygame.image.load("/Users/YourName/Documents/git/HackRice11/GalaxyView.png")
-BEAKER = pygame.image.load("/Users/YourName/Documents/git/HackRice11/beaker.png")
+GRASSY_FIELD = pygame.image.load("/Users/jonathan/Documents/git/HackRice11/GrassyField.png")
+PLANET_EARTH = pygame.image.load("/Users/jonathan/Documents/git/HackRice11/PlanetEarth.png")
+EARTH_MOON = pygame.image.load("/Users/jonathan/Documents/git/HackRice11/EarthMoon.png")
+SOLAR_SYSTEM = pygame.image.load("/Users/jonathan/Documents/git/HackRice11/SolarSystem.png")
+GALAXY_VIEW = pygame.image.load("/Users/jonathan/Documents/git/HackRice11/GalaxyView.png")
+VICTORY_SCREEN = pygame.image.load("/Users/jonathan/Documents/git/HackRice11/GalaxyView.png")
+BEAKER = pygame.image.load("/Users/jonathan/Documents/git/HackRice11/beaker.png")
 
-#scaling pictures
 GRASSY_FIELD = pygame.transform.smoothscale(GRASSY_FIELD, (WIDTH, HEIGHT))
 PLANET_EARTH = pygame.transform.smoothscale(PLANET_EARTH, (WIDTH, HEIGHT))
 EARTH_MOON = pygame.transform.smoothscale(EARTH_MOON, (WIDTH, HEIGHT))
@@ -52,7 +50,7 @@ CUTOFF_VALUES = [0, 100, 500, 2500, 15000, 50000]
 progression_index = 0
 
 clicked = False
-counter = 0
+counter = 50
 count_up_by = 1
 
 class Button():
@@ -206,6 +204,7 @@ while run:
 
 #text
     #research lab
+    if journal_flag % 2 == 0 and 50 <= counter < 100:
         line1 = (pygame.font.SysFont('Arial', 25)).render("research lab - You’ve discovered the research lab! This is where cool scientists like you do ", True, (black))
         screen.blit(line1, (15, 465))
         line2 = (pygame.font.SysFont('Arial', 25)).render("experiments to learn more about the earth and the universe. You have a selection of tools that", True, (black))
@@ -215,6 +214,7 @@ while run:
         line4 = (pygame.font.SysFont('Arial', 25)).render("Professor JMak", True, (black))
         screen.blit(line4, (15, 550))
     #earth
+    if journal_flag % 2 == 0 and 100 <= counter < 250:
         line1 = (pygame.font.SysFont('Arial', 25)).render("You’ve discovered that our home planet is called the Earth! Earth revolves around the Sun once", True, (black))
         screen.blit(line1, (15, 465))
         line2 = (pygame.font.SysFont('Arial', 25)).render("every 365.25 days – this is known as one Earth year. Earth is very special because it is the", True, (black))
