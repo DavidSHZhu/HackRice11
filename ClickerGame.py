@@ -44,9 +44,9 @@ pygame.display.set_caption('StarCatcher')
 
 font = pygame.font.SysFont('Arial', 30)
 
-SCENES = [GRASSY_FIELD, PLANET_EARTH, EARTH_MOON, SOLAR_SYSTEM, GALAXY_VIEW, VICTORY_SCREEN, BEAKER]
+SCENES = [GRASSY_FIELD, PLANET_EARTH, EARTH_MOON, SOLAR_SYSTEM, GALAXY_VIEW]
 # Once you have accrued 100,000 you achieve victory and can choose to play again.
-CUTOFF_VALUES = [0, 100, 500, 2500, 15000, 50000,1000000000]
+CUTOFF_VALUES = [0, 100, 500, 2500, 15000, 50000]
 progression_index = 0
 
 clicked = False
@@ -76,7 +76,7 @@ class Button():
 
         if self.button_rect.collidepoint(pos):
             self.drawButton(self.hover_col)
-            # pygame.draw.rect(screen, self.hover_col, button_rect)
+            #draws button if clicked
             if pygame.mouse.get_pressed()[0] == 1:
                 clicked = True
                 self.drawButton(self.clicked_col)
@@ -85,6 +85,7 @@ class Button():
                 clicked = False
                 action = True
         else:
+            #draws button when not clicked/hovered
             pygame.draw.rect(screen, self.button_col, self.button_rect)
 
 #centers text onto button
@@ -98,14 +99,12 @@ class Button():
         pygame.draw.rect(screen, color, self.button_rect)
 
 #Buttons
-
-
 up = Button(50, 305, 'Click me!', red, 50, 100, dark_red, light_red, 20)
-#Upgrade Telescope (10 RP)
 activeUpgrade1 = Button(705, 120, "10 RP", light_purple, 70, 70, purple, med_purple, 15)
-#Upgrade Lunar Rovers (100 RP)
 passiveUpgrade1 = Button(791, 120, "100 RP", light_purple, 70, 70, purple, med_purple, 15)
 close_journal =  Button(12, 452, "", grey, 20, 20, black, light_grey, 10)
+
+#Button Flags
 ActivePressed = [False, False]
 PassivePressed = [False, False]
 journal_flag = 0
@@ -123,14 +122,18 @@ while run:
     time_counter %= 60
     if time_counter == 0:
         counter += passive_income
+    
+    #iterates through the background screens
     if counter > CUTOFF_VALUES[progression_index + 1]:
         progression_index += 1
     if progression_index == len(CUTOFF_VALUES) - 1:
         screen.blit(VICTORY_SCREEN, (0, 0))
         break
+
     #fill screen
     screen.blit(SCENES[progression_index], (0, 0))
-    #adds background
+
+    #adds foreground elements
     #draws upgrade screen
     pygame.draw.rect(screen, (blue), pygame.Rect(685, 25, 200, 400))
     pygame.draw.rect(screen, (light_blue), pygame.Rect(690, 30, 190, 390))
@@ -142,11 +145,11 @@ while run:
     screen.blit(upgrade_text2, (700, 80))
     upgrade_text3 = (pygame.font.SysFont('Arial', 15)).render("Explorational", True, (black))
     screen.blit(upgrade_text3, (790, 80))
+
     #draws research point screen
     pygame.draw.rect(screen, (black), pygame.Rect(5, 360, 200, 70))
     pygame.draw.rect(screen, (white), pygame.Rect(10, 365, 190, 60))
     screen.blit(BEAKER, (100, 367))
-
 
     #check if button is clicked and what it does
     #what happens when up is clicked
@@ -335,6 +338,4 @@ while run:
             run = False	
     pygame.display.update()
 
-
-if run == False:
-    pygame.quit()
+pygame.quit()
