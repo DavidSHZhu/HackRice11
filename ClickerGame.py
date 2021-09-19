@@ -3,7 +3,6 @@ TODO:
 add logic to when victory screen appears (aka when progression_index == len(CUTOFF_VALUES) - 1)
     -delete buttons
     -add a quit button
-
 fix button positioning / colors, etc.
 add informative popups.
 add comments to code
@@ -21,16 +20,18 @@ black = (0,0,0)
 red = (255,0,0)
 blue = (0,0,255)
 green = (0,255,0)
+brown = (100,40,0)
+light_brown = (196, 164, 132)
 
 WIDTH = 900
 HEIGHT = 600
 
-GRASSY_FIELD = pygame.image.load("/Users/davidzhu/Documents/Rice University/HackRice11/GrassyField.png")
-PLANET_EARTH = pygame.image.load("/Users/davidzhu/Documents/Rice University/HackRice11/PlanetEarth.png")
-EARTH_MOON = pygame.image.load("/Users/davidzhu/Documents/Rice University/HackRice11/EarthMoon.png")
-SOLAR_SYSTEM = pygame.image.load("/Users/davidzhu/Documents/Rice University/HackRice11/SolarSystem.png")
-GALAXY_VIEW = pygame.image.load("/Users/davidzhu/Documents/Rice University/HackRice11/GalaxyView.png")
-VICTORY_SCREEN = pygame.image.load("/Users/davidzhu/Documents/Rice University/HackRice11/GalaxyView.png")
+GRASSY_FIELD = pygame.image.load("/Users/jonathan/Documents/git/HackRice11/GrassyField.png")
+PLANET_EARTH = pygame.image.load("/Users/jonathan/Documents/git/HackRice11/PlanetEarth.png")
+EARTH_MOON = pygame.image.load("/Users/jonathan/Documents/git/HackRice11/EarthMoon.png")
+SOLAR_SYSTEM = pygame.image.load("/Users/jonathan/Documents/git/HackRice11/SolarSystem.png")
+GALAXY_VIEW = pygame.image.load("/Users/jonathan/Documents/git/HackRice11/GalaxyView.png")
+VICTORY_SCREEN = pygame.image.load("/Users/jonathan/Documents/git/HackRice11/GalaxyView.png")
 
 GRASSY_FIELD = pygame.transform.smoothscale(GRASSY_FIELD, (WIDTH, HEIGHT))
 PLANET_EARTH = pygame.transform.smoothscale(PLANET_EARTH, (WIDTH, HEIGHT))
@@ -105,8 +106,11 @@ class Button():
 up = Button(275, 200, '', red, 70, 70, green, blue, 10)
 activeUpgrade1 = Button(400, 300, "Upgrade Telescope (" + str(10) + " RP)", red, 70, 70, green, blue, 10)
 passiveUpgrade1 = Button(200, 300, "Upgrade Lunar Rovers (" + str(100) + " RP)", red, 70, 70, green, blue, 10)
+close_journal =  Button(12, 452, "", red, 20, 20, green, blue, 10)
 ActivePressed = [False, False]
 PassivePressed = [False, False]
+journal_flag = 0
+
 
 
 #main run function
@@ -115,6 +119,7 @@ run = True
 FPS = 60
 clock = pygame.time.Clock()
 time_counter = 0
+
 while run:
     clock.tick(FPS)
     time_counter += 1
@@ -132,6 +137,15 @@ while run:
     
     #check if button is clicked and what it does
     #what happens when up is clicked
+
+    if close_journal.isClicked():
+        journal_flag += 1
+    if journal_flag % 2 == 0:
+        pygame.draw.rect(screen, (brown), pygame.Rect(5, 445, 885, 150))
+        pygame.draw.rect(screen, (light_brown), pygame.Rect(10, 450, 875, 140))
+        close_journal.isClicked()
+                
+
     if up.isClicked():
         counter += count_up_by
 
@@ -172,8 +186,18 @@ while run:
             passive_income += 400
             counter -= 30000
 
+#text
+    if journal_flag % 2 == 0 and 50 <= counter < 100:
+        line1 = (pygame.font.SysFont('Arial', 25)).render("research lab - You’ve discovered the research lab! This is where cool scientists like you do ", True, (black))
+        screen.blit(line1, (15, 465))
+        line2 = (pygame.font.SysFont('Arial', 25)).render("experiments to learn more about the earth and the universe. You have a selection of tools that", True, (black))
+        screen.blit(line2, (15, 490))
+        line3 = (pygame.font.SysFont('Arial', 25)).render("help you see and understand the bodies of the universe, discover new stars, and work with ", True, (black))
+        screen.blit(line3, (15, 520))
+        line4 = (pygame.font.SysFont('Arial', 25)).render("Professor JMak", True, (black))
+        screen.blit(line4, (15, 550))
 #counter number
-    counter_img = font.render(str(counter), True, (100,50,100))
+    counter_img = font.render(str(counter), True, (black))
     screen.blit(counter_img, (280, 450))
 
 #main loop DO NOT TOUCH
